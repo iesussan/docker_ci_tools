@@ -1,7 +1,7 @@
 FROM centos:centos7
 LABEL Jesus Sanchez <sanchezajesus@gmail.com>
-LABEL docker build -t daimonos/jenkins-full:latest -f Dockerfile.dockerfile .
-LABEL docker run --name jenkins-full -d -p 8080:8080 -p 50000:50000 -v /var/lib/docker/Volumes/jenkins-full:/var/jenkins_home daimonos/jenkins-full:latest
+LABEL docker build -t isdaimonos/centos/jenkins-full:latest -f Dockerfile.dockerfile .
+LABEL docker run --name jenkins-full -d -p 8080:8080 -p 50000:50000 -v /var/lib/docker/Volumes/jenkins-full:/var/jenkins_home isdaimonos/centos/jenkins-full:latest
 
 ARG user=jenkins
 ARG group=jenkins
@@ -60,7 +60,8 @@ RUN yum -y install epel-release \
                 && mkdir -p /opt/jenkins \
                 && wget https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/${JENKINS_VERSION}/jenkins-war-${JENKINS_VERSION}.war  -P /usr/share/jenkins/ \
                 && mv /usr/share/jenkins/jenkins-war-${JENKINS_VERSION}.war /usr/share/jenkins/jenkins.war \
-                && chown ${user}:${user} -Rv /opt $JENKINS_HOME /usr/share/jenkins /etc/ansible
+                && chown ${user}:${user} -Rv /opt $JENKINS_HOME /usr/share/jenkins /etc/ansible \
+                && rm -rf jdk-${JAVA_VERSION}-linux-x64.tar.gz 
 
 USER ${user}
 WORKDIR ${JENKINS_HOME}
