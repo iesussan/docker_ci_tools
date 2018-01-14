@@ -13,10 +13,17 @@ by default:
 * `gradle version:2.4.2.0`
 
 # Usage
-to compile it:
+To build it (Basic build):
 ```
 docker build -t daimonos/jenkins-full:latest -f Dockerfile.dockerfile .
 ```
-to run it:
+To run it:
+clone the repository and follow this line
+```
+cd docker_ci_tools
+```
+```
+docker run --name jenkins-full -d -p 8080:8080 -p 50000:50000 -v `pwd`:/var/jenkins_home daimonos/jenkins-full:latest
+```
 
 
