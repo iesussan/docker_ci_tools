@@ -18,7 +18,7 @@ To build it (Basic build):
 docker build -t daimonos/jenkins-full:latest -f Dockerfile.dockerfile .
 ```
 To run it:
-clone the repository and follow this line
+clone the repository and follow this lines
 ```
 cd docker_ci_tools
 ```
