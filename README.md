@@ -6,7 +6,7 @@ A custom docker imagen for a development enviroment of [Jenkins](https://jenkins
 ![alt text](https://media1.tenor.com/images/d0af1e714dfb82b58847086e8d35314c/tenor.gif?itemid=7256015 "HA HA HA")
 
 # What does this image contain?
-by default:
+By default:
 * `jenkins version:2.89.2`
 * `ansible version:2.4.2.0`
 * `maven version:3.3.9`
@@ -15,7 +15,7 @@ by default:
 # Usage
 To build it (Basic build):
 ```
-docker build -t daimonos/jenkins-full:latest -f Dockerfile.dockerfile .
+docker build -t isdaimonos/jenkins-full:latest -f Dockerfile.dockerfile .
 ```
 To run it:
 clone the repository and follow this lines
@@ -23,7 +23,7 @@ clone the repository and follow this lines
 cd docker_ci_tools
 ```
 ```
-docker run --name jenkins-full -d -p 8080:8080 -p 50000:50000 -v `pwd`:/var/jenkins_home daimonos/jenkins-full:latest
+docker run --name jenkins-full -d -p 8080:8080 -p 50000:50000 -v `pwd`:/var/jenkins_home isdaimonos/centos/jenkins-full:latest
 ```
 
 
