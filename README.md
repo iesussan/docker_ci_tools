@@ -7,7 +7,7 @@ A custom docker imagen for a development enviroment of [Jenkins](https://jenkins
 
 # What does this image contain?
 By default:
-* `jenkins version:2.89.2`
+* `jenkins version:2.89.1`
 * `ansible version:2.4.2.0`
 * `maven version:3.3.9`
 * `gradle version:2.4.2.0`

@@ -1,7 +1,7 @@
 FROM centos:centos7
 LABEL Jesus Sanchez <sanchezajesus@gmail.com>
 LABEL docker build -t isdaimonos/centos-jenkins-full:latest -f Dockerfile.dockerfile .
-LABEL docker run --name jenkins-full -d -p 8080:8080 -p 50000:50000 -v /var/lib/docker/Volumes/jenkins-full:/var/jenkins_home isdaimonos/centos-jenkins-full:latest
+LABEL docker run --name jenkins-full -d -p 8080:8080 -v /var/lib/docker/Volumes/jenkins-full:/var/jenkins_home isdaimonos/centos-jenkins-full:latest --restart on-failure
 
 ARG user=jenkins
 ARG group=jenkins
@@ -10,7 +10,7 @@ ARG gid=1000
 ARG http_port=8080
 ARG agent_port=50000
 ARG ansible_version=2.4.2.0
-ARG jenkins_version=2.89
+ARG jenkins_version=2.89.1
 ARG gradle_version=4.3
 ARG maven_version=3.3.9
 
