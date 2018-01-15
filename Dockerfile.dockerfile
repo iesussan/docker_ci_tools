@@ -52,7 +52,6 @@ RUN yum -y install epel-release \
                 && unzip /tmp/gradle-"$GRADLE_VERSION"-bin.zip -d "$DEFAULT_GRADLE_DIR" \
                 && ln -s "$DEFAULT_MAVEN_DIR/apache-maven-$MAVEN_VERSION/bin/mvn" /usr/bin/mvn \
                 && ln -s "$DEFAULT_GRADLE_DIR/gradle-$GRADLE_VERSION/bin/gradle" /usr/bin/gradle \
-                && rm -rf /var/cache/apk/* \
                 && mkdir -p /etc/ansible \
                 && echo 'localhost' > /etc/ansible/hosts \
                 && groupadd -g ${gid} ${group} \
@@ -61,7 +60,7 @@ RUN yum -y install epel-release \
                 && mkdir -p ${JENKINS_HOME}/tmp \
                 && mv /usr/share/jenkins/jenkins-war-${JENKINS_VERSION}.war /usr/share/jenkins/jenkins.war \
                 && chown -Rv ${user}:${user} -Rv /opt $JENKINS_HOME /usr/share/jenkins /etc/ansible \
-                && rm -rf jdk-${JAVA_VERSION}-linux-x64.tar.gz /tmp/*
+                && rm -rf jdk-${JAVA_VERSION}-linux-x64.tar.gz /tmp/* /var/cache/yum/* /root/*
 
 USER ${user}
 WORKDIR ${JENKINS_HOME}
