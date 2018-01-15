@@ -23,7 +23,18 @@ clone the repository and follow this lines
 cd docker_ci_tools
 ```
 ```
-docker run --name jenkins-full -d -p 8080:8080 -p 50000:50000 -v `pwd`:/var/jenkins_home isdaimonos/centos/jenkins-full:latest
+docker run --name jenkins-full -d -p 8080:8080 -p 50000:50000 -v `pwd`:/var/jenkins_home isdaimonos/centos/jenkins-full:latest --restart on-failure
 ```
+# Extended usage
+Sending extra vars like JVM params
+```
+docker run --name jenkins-full -d -p 8080:8080 -p 50000:50000 -v `pwd`:/var/jenkins_home --env JAVA_OPTS=-Dhudson.footerURL=http://myhost isdaimonos/centos/jenkins-full:latest 
+```
+After it  you will run the follow command
 
+```
+docker logs -f jenkins-full
+```
+you should see the following
 
+![alt text](images/jenkins_inital_password.png "HA HA HA")

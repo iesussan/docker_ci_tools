@@ -1,7 +1,7 @@
 FROM centos:centos7
 LABEL Jesus Sanchez <sanchezajesus@gmail.com>
-LABEL docker build -t isdaimonos/centos/jenkins-full:latest -f Dockerfile.dockerfile .
-LABEL docker run --name jenkins-full -d -p 8080:8080 -p 50000:50000 -v /var/lib/docker/Volumes/jenkins-full:/var/jenkins_home isdaimonos/centos/jenkins-full:latest
+LABEL docker build -t isdaimonos/centos-jenkins-full:latest -f Dockerfile.dockerfile .
+LABEL docker run --name jenkins-full -d -p 8080:8080 -p 50000:50000 -v /var/lib/docker/Volumes/jenkins-full:/var/jenkins_home isdaimonos/centos-jenkins-full:latest
 
 ARG user=jenkins
 ARG group=jenkins
@@ -10,7 +10,7 @@ ARG gid=1000
 ARG http_port=8080
 ARG agent_port=50000
 ARG ansible_version=2.4.2.0
-ARG jenkins_version=2.89.2
+ARG jenkins_version=2.89
 ARG gradle_version=4.3
 ARG maven_version=3.3.9
 
@@ -47,7 +47,7 @@ RUN yum -y install epel-release \
                 && pip install ansible==$ANSIBLE_VERSION \
                 && wget http://www-eu.apache.org/dist/maven/maven-3/"$MAVEN_VERSION"/binaries/apache-maven-"$MAVEN_VERSION"-bin.tar.gz -P /tmp \
                 && wget https://services.gradle.org/distributions/gradle-"$GRADLE_VERSION"-bin.zip -P /tmp \
-                && mkdir -p "/opt/maven/$MAVEN" \
+                && mkdir -p "$DEFAULT_MAVEN_DIR" "$DEFAULT_GRADLE_DIR" \
                 && tar -xvzf /tmp/apache-maven-"$MAVEN_VERSION"-bin.tar.gz -C "$DEFAULT_MAVEN_DIR" \
                 && unzip /tmp/gradle-"$GRADLE_VERSION"-bin.zip -d "$DEFAULT_GRADLE_DIR" \
                 && ln -s "$DEFAULT_MAVEN_DIR/apache-maven-$MAVEN_VERSION/bin/mvn" /usr/bin/mvn \
@@ -57,11 +57,11 @@ RUN yum -y install epel-release \
                 && echo 'localhost' > /etc/ansible/hosts \
                 && groupadd -g ${gid} ${group} \
                 && adduser -d "$JENKINS_HOME" -u ${uid} -g ${group} -s /bin/bash ${user} \
-                && mkdir -p /opt/jenkins \
                 && wget https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/${JENKINS_VERSION}/jenkins-war-${JENKINS_VERSION}.war  -P /usr/share/jenkins/ \
+                && mkdir -p ${JENKINS_HOME}/tmp \
                 && mv /usr/share/jenkins/jenkins-war-${JENKINS_VERSION}.war /usr/share/jenkins/jenkins.war \
-                && chown ${user}:${user} -Rv /opt $JENKINS_HOME /usr/share/jenkins /etc/ansible \
-                && rm -rf jdk-${JAVA_VERSION}-linux-x64.tar.gz 
+                && chown -Rv ${user}:${user} -Rv /opt $JENKINS_HOME /usr/share/jenkins /etc/ansible \
+                && rm -rf jdk-${JAVA_VERSION}-linux-x64.tar.gz /tmp/*
 
 USER ${user}
 WORKDIR ${JENKINS_HOME}
