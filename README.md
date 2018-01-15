@@ -43,4 +43,4 @@ Copy the string and open your browser (I hope you have the IP of the docker host
 
 ![alt text](images/unlock_jenkins.png "jenkins initial password")
 
-Paste it! and press continue
+Paste it! and press continue!!! The next two steps make the selection you want.
