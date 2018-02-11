@@ -23,7 +23,10 @@ ENV DEFAULT_MAVEN_DIR="/opt/maven" \
     JENKINS_VERSION="${jenkins_version}" \
     JENKINS_UC="https://updates.jenkins.io" \
     JENKINS_UC_EXPERIMENTAL="https://updates.jenkins.io/experimental" \
-    ANSIBLE_VERSION="${ansible_version}" 
+    ANSIBLE_VERSION="${ansible_version}" \
+    JAVA_JDK_VERSION=${JAVA_VERSION:-8} \
+    JAVA_PACKAGE_EXT=${JAVA_EXT:-tar.gz}
+
 ENV COPY_REFERENCE_FILE_LOG="${JENKINS_HOME}/copy_reference_file.log" \
     PATH="$PATH:$JAVA_HOME/bin"
 ENV JAVA_BASE_URL="http://www.oracle.com"
@@ -40,17 +43,17 @@ RUN yum -y install epel-release \
        && pip install ansible==$ANSIBLE_VERSION \
        && wget http://www-eu.apache.org/dist/maven/maven-3/"$MAVEN_VERSION"/binaries/apache-maven-"$MAVEN_VERSION"-bin.tar.gz -P /tmp \
        && wget https://services.gradle.org/distributions/gradle-"$GRADLE_VERSION"-bin.zip -P /tmp \
-       && mkdir -p "$DEFAULT_MAVEN_DIR" "$DEFAULT_GRADLE_DIR" "$JENKINS_HOME" "/usr/share/jenkins/"  \
+       &&  -p "$DEFAULT_MAVEN_DIR" "$DEFAULT_GRADLE_DIR" "$JENKINS_HOME" "/usr/share/jenkins/"  \
        && tar -xvzf /tmp/apache-maven-"$MAVEN_VERSION"-bin.tar.gz -C "$DEFAULT_MAVEN_DIR" \
        && unzip /tmp/gradle-"$GRADLE_VERSION"-bin.zip -d "$DEFAULT_GRADLE_DIR" \
        && ln -s "$DEFAULT_MAVEN_DIR/apache-maven-$MAVEN_VERSION/bin/mvn" /usr/bin/mvn \
        && ln -s "$DEFAULT_GRADLE_DIR/gradle-$GRADLE_VERSION/bin/gradle" /usr/bin/gradle \
-       && mkdir -p /etc/ansible \
+       &&  -p /etc/ansible \
        && echo 'localhost' > /etc/ansible/hosts \
        && groupadd -g ${gid} ${group} \
        && adduser -d "$JENKINS_HOME" -u ${uid} -g ${group} -s /bin/bash ${user} \
        && wget https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/${JENKINS_VERSION}/jenkins-war-${JENKINS_VERSION}.war  -P /usr/share/jenkins/ \
-       && mkdir -p ${JENKINS_HOME}/tmp \
+       &&  -p ${JENKINS_HOME}/tmp \
        && mv /usr/share/jenkins/jenkins-war-${JENKINS_VERSION}.war /usr/share/jenkins/jenkins.war \
        && chown -Rv ${user}:${user} -Rv /opt $JENKINS_HOME /usr/share/jenkins /etc/ansible \
        && rm -rf /tmp/*
