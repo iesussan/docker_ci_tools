@@ -1,16 +1,16 @@
 #! /bin/bash -e
 
-if [[ ! -z $(which java) ]]
+if [[ ! -z $(which java) ]]  && [[ $(which java) == '/usr/bin/java' ]]
   then
 readonly jdk_download_url2=$(
-    curl -s $jdk_download_url1 | \
+    curl -s $JAVA_DOWNLOAD_URL1 | \
     egrep -o "\/technetwork\/java/\javase\/downloads\/jdk${jdk_version}-downloads-.+?\.html" | \
     head -1 | \
     cut -d '"' -f 1
 )
 [[ -z "$jdk_download_url2" ]] && echo "Could not get jdk download url - $jdk_download_url1" >> /dev/stderr
 
-readonly jdk_download_url3="${url}${jdk_download_url2}"
+readonly jdk_download_url3="$JAVA_BASE_URL${jdk_download_url2}"
 readonly jdk_download_url4=$(
     curl -s $jdk_download_url3 | \
     egrep -o "http\:\/\/download.oracle\.com\/otn-pub\/java\/jdk\/[8-9](u[0-9]+|\+).*\/jdk-${jdk_version}.*(-|_)linux-(x64|x64_bin).$ext"
