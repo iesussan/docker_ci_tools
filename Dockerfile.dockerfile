@@ -2,7 +2,6 @@ FROM centos:centos7
 LABEL Jesus Sanchez <sanchezajesus@gmail.com>
 LABEL docker build -t isdaimonos/centos-jenkins-full:latest -f Dockerfile.dockerfile .
 LABEL docker run --name jenkins-full -d -p 8080:8080 -v /var/lib/docker/Volumes/jenkins-full:/var/jenkins_home isdaimonos/centos-jenkins-full:latest --restart on-failure
-LABEL -Djava.awt.headless=true -Djava.io.tmpdir=/var/jenkins_home/tmp docker run --name jenkins-full -d -p 8080:8080 -p 50000:50000 -v /var/lib/docker/Volumes/jenkins-full:/var/jenkins_home --env JAVA_OPTS="-Djava.awt.headless=true" --restart on-failure isdaimonos/centos-jenkins-full:latest
 
 ARG user=jenkins
 ARG group=jenkins
