@@ -40,7 +40,7 @@ RUN yum -y install epel-release \
        && pip install ansible==$ANSIBLE_VERSION \
        && wget http://www-eu.apache.org/dist/maven/maven-3/"$MAVEN_VERSION"/binaries/apache-maven-"$MAVEN_VERSION"-bin.tar.gz -P /tmp \
        && wget https://services.gradle.org/distributions/gradle-"$GRADLE_VERSION"-bin.zip -P /tmp \
-       && mkdir -p "$DEFAULT_MAVEN_DIR" "$DEFAULT_GRADLE_DIR" \
+       && mkdir -p "$DEFAULT_MAVEN_DIR" "$DEFAULT_GRADLE_DIR" "$JENKINS_HOME" "/usr/share/jenkins/"  \
        && tar -xvzf /tmp/apache-maven-"$MAVEN_VERSION"-bin.tar.gz -C "$DEFAULT_MAVEN_DIR" \
        && unzip /tmp/gradle-"$GRADLE_VERSION"-bin.zip -d "$DEFAULT_GRADLE_DIR" \
        && ln -s "$DEFAULT_MAVEN_DIR/apache-maven-$MAVEN_VERSION/bin/mvn" /usr/bin/mvn \
@@ -53,6 +53,7 @@ RUN yum -y install epel-release \
        && mkdir -p ${JENKINS_HOME}/tmp \
        && mv /usr/share/jenkins/jenkins-war-${JENKINS_VERSION}.war /usr/share/jenkins/jenkins.war \
        && chown -Rv ${user}:${user} -Rv /opt $JENKINS_HOME /usr/share/jenkins /etc/ansible \
+       && rm -rf /tmp/*
 
 USER ${user}
 WORKDIR ${JENKINS_HOME}
