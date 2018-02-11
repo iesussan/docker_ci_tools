@@ -43,17 +43,17 @@ RUN yum -y install epel-release \
        && pip install ansible==$ANSIBLE_VERSION \
        && wget http://www-eu.apache.org/dist/maven/maven-3/"$MAVEN_VERSION"/binaries/apache-maven-"$MAVEN_VERSION"-bin.tar.gz -P /tmp \
        && wget https://services.gradle.org/distributions/gradle-"$GRADLE_VERSION"-bin.zip -P /tmp \
-       &&  -p "$DEFAULT_MAVEN_DIR" "$DEFAULT_GRADLE_DIR" "$JENKINS_HOME" "/usr/share/jenkins/"  \
+       && mkdir -p "$DEFAULT_MAVEN_DIR" "$DEFAULT_GRADLE_DIR" "$JENKINS_HOME" "/usr/share/jenkins/"  \
        && tar -xvzf /tmp/apache-maven-"$MAVEN_VERSION"-bin.tar.gz -C "$DEFAULT_MAVEN_DIR" \
        && unzip /tmp/gradle-"$GRADLE_VERSION"-bin.zip -d "$DEFAULT_GRADLE_DIR" \
        && ln -s "$DEFAULT_MAVEN_DIR/apache-maven-$MAVEN_VERSION/bin/mvn" /usr/bin/mvn \
        && ln -s "$DEFAULT_GRADLE_DIR/gradle-$GRADLE_VERSION/bin/gradle" /usr/bin/gradle \
-       &&  -p /etc/ansible \
+       && mkdir -p /etc/ansible \
        && echo 'localhost' > /etc/ansible/hosts \
        && groupadd -g ${gid} ${group} \
        && adduser -d "$JENKINS_HOME" -u ${uid} -g ${group} -s /bin/bash ${user} \
        && wget https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/${JENKINS_VERSION}/jenkins-war-${JENKINS_VERSION}.war  -P /usr/share/jenkins/ \
-       &&  -p ${JENKINS_HOME}/tmp \
+       && mkdir -p ${JENKINS_HOME}/tmp \
        && mv /usr/share/jenkins/jenkins-war-${JENKINS_VERSION}.war /usr/share/jenkins/jenkins.war \
        && chown -Rv ${user}:${user} -Rv /opt $JENKINS_HOME /usr/share/jenkins /etc/ansible \
        && rm -rf /tmp/*
