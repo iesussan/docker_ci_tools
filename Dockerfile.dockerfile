@@ -23,7 +23,7 @@ ENV DEFAULT_MAVEN_DIR="/opt/maven" \
     JENKINS_VERSION="${jenkins_version}" \
     JENKINS_UC="https://updates.jenkins.io" \
     JENKINS_UC_EXPERIMENTAL="https://updates.jenkins.io/experimental" \
-    ANSIBLE_VERSION="${ansible_version}" \
+    ANSIBLE_VERSION="${ansible_version}" 
     #JAVA_JDK_VERSION=${JAVA_VERSION:-8} \
     #JAVA_PACKAGE_EXT=${JAVA_EXT:-tar.gz}
 
