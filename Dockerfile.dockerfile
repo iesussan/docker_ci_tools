@@ -24,13 +24,13 @@ ENV DEFAULT_MAVEN_DIR="/opt/maven" \
     JENKINS_UC="https://updates.jenkins.io" \
     JENKINS_UC_EXPERIMENTAL="https://updates.jenkins.io/experimental" \
     ANSIBLE_VERSION="${ansible_version}" \
-    JAVA_JDK_VERSION=${JAVA_VERSION:-8} \
-    JAVA_PACKAGE_EXT=${JAVA_EXT:-tar.gz}
+    #JAVA_JDK_VERSION=${JAVA_VERSION:-8} \
+    #JAVA_PACKAGE_EXT=${JAVA_EXT:-tar.gz}
 
 ENV COPY_REFERENCE_FILE_LOG="${JENKINS_HOME}/copy_reference_file.log" \
     PATH="$PATH:$JAVA_HOME/bin"
-ENV JAVA_BASE_URL="http://www.oracle.com"
-ENV JAVA_DOWNLOAD_URL1="${JAVA_BASE_URL}/technetwork/java/javase/downloads/index.html"
+#ENV JAVA_BASE_URL="http://www.oracle.com"
+#ENV JAVA_DOWNLOAD_URL1="${JAVA_BASE_URL}/technetwork/java/javase/downloads/index.html"
 
 # Install prepare infrastructure
 RUN yum -y install epel-release \
