@@ -23,7 +23,7 @@ clone the repository and follow this lines
 cd docker_ci_tools
 ```
 ```
-docker run --name jenkins-full -d -p 8080:8080 -p 50000:50000 -v `pwd`:/var/jenkins_home isdaimonos/centos/jenkins-full:latest --restart on-failure
+docker run --restart on-failure --name jenkins-full -d -p 8080:8080 -p 50000:50000 -v `pwd`:/var/jenkins_home isdaimonos/centos/jenkins-full:latest 
 ```
 # Extended usage
 Sending extra vars like JVM params
