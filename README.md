@@ -7,7 +7,7 @@ A custom docker imagen for a development enviroment of [Jenkins](https://jenkins
 
 # What does this image contain?
 By default:
-* `jenkins version:2.89.1`
+* `jenkins version:2.89.4`
 * `ansible version:2.4.2.0`
 * `maven version:3.3.9`
 * `gradle version:2.4.2.0`
@@ -28,7 +28,7 @@ docker run --restart on-failure --name jenkins-full -d -p 8080:8080 -p 50000:500
 # Extended usage
 Sending extra vars like JVM params
 ```
-docker run --name jenkins-full -d -p 8080:8080 -p 50000:50000 -v `pwd`:/var/jenkins_home --env JAVA_OPTS="-Dhudson.footerURL=http://myhost -Djava.awt.headless=true" isdaimonos/centos/jenkins-full:latest 
+docker run --restart on-failure --name jenkins-full -d -p 8080:8080 -p 50000:50000 -v `pwd`:/var/jenkins_home --env JAVA_OPTS="-Dhudson.footerURL=http://myhost -Djava.awt.headless=true" isdaimonos/centos/jenkins-full:latest 
 ```
 After it, you will run the following command
 
