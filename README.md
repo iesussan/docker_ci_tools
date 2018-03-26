@@ -28,7 +28,7 @@ docker run --restart on-failure --name jenkins-full -d -p 8080:8080 -p 50000:500
 # Extended usage
 Sending extra vars like JVM params
 ```
-docker run --restart on-failure --name jenkins-full -d -p 8080:8080 -p 50000:50000 -v `pwd`:/var/jenkins_home --env JAVA_OPTS="-Dhudson.footerURL=http://myhost -Djava.awt.headless=true" isdaimonos/centos/jenkins-full:latest 
+docker run --restart on-failure --name jenkins-full -d -p 8080:8080 -p 50000:50000 -v `pwd`:/var/jenkins_home --env JAVA_OPTS="-Dhudson.footerURL=http://myhost -Djava.awt.headless=true" isdaimonos/jenkins-full:latest  
 ```
 After it, you will run the following command
 
