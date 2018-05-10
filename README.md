@@ -8,23 +8,32 @@ A custom docker imagen for a development enviroment of [Jenkins](https://jenkins
 # What does this image contain?
 By default:
 * `jenkins version:2.89.4`
-* `ansible version:2.4.2.0`
+* `ansible version: >= 2.5.2`
 * `maven version:3.3.9`
 * `gradle version:2.4.2.0`
 
 # Usage
+Clone the repository and follow this lines
+```
+git clone https://github.com/is-daimonos/docker_ci_tools
+cd docker_ci_tools
+mkdir /var/lib/docker/Volumes/jenkins-full
+chown 2000:2000 /var/lib/docker/Volumes/jenkins-full
+```
 To build it (Basic build):
 ```
 docker build -t isdaimonos/jenkins-full:latest -f Dockerfile.dockerfile .
 ```
 To run it:
-clone the repository and follow this lines
 ```
-cd docker_ci_tools
+docker run --restart on-failure --name jenkins-full -d -p 8080:8080 -p 50000:50000 -v /var/lib/docker/Volumes/jenkins-full:/var/jenkins_home isdaimonos/jenkins-full:latest
 ```
+**Note**: Set selinux in permissive mode to avoid problems.
 ```
-docker run --restart on-failure --name jenkins-full -d -p 8080:8080 -p 50000:50000 -v `pwd`:/var/jenkins_home isdaimonos/jenkins-full:latest 
+setenforce 0
+sudo sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config
 ```
+
 # Extended usage
 Sending extra vars like JVM params
 ```
