@@ -17,7 +17,7 @@ Clone the repository and follow this lines
 ```
 git clone https://github.com/is-daimonos/docker_ci_tools
 cd docker_ci_tools
-mkdir /var/lib/docker/Volumes/jenkins-full
+mkdir -p /var/lib/docker/Volumes/jenkins-full
 chown 2000:2000 /var/lib/docker/Volumes/jenkins-full
 ```
 To build it (Basic build):
@@ -37,7 +37,7 @@ sudo sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config
 # Extended usage
 Sending extra vars like JVM params
 ```
-docker run --restart on-failure --name jenkins-full -d -p 8080:8080 -p 50000:50000 -v `pwd`:/var/jenkins_home --env JAVA_OPTS="-Dhudson.footerURL=http://myhost -Djava.awt.headless=true" isdaimonos/jenkins-full:latest  
+docker run --restart on-failure --name jenkins-full -d -p 8080:8080 -p 50000:50000 -v /var/lib/docker/Volumes/jenkins-full:/var/jenkins_home --env JAVA_OPTS="-Dhudson.footerURL=http://myhost -Djava.awt.headless=true" isdaimonos/jenkins-full:latest
 ```
 After it, you will run the following command
 
