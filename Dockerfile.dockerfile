@@ -8,7 +8,7 @@ ARG uid=2000
 ARG gid=2000
 ARG http_port=8080
 ARG agent_port=50000
-ARG jenkins_version=2.89.4
+ARG jenkins_version=2.107.3
 ARG gradle_version=4.3
 ARG maven_version=3.3.9
 
