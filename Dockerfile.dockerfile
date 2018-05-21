@@ -29,10 +29,10 @@ ENV COPY_REFERENCE_FILE_LOG="${JENKINS_HOME}/copy_reference_file.log" \
 # Install prepare infrastructure
 RUN yum -y install epel-release \
     && yum install -y wget curl unzip python git bash python2-pip \
-       less openssl openssh-client p7zip py-lxml py-pip rsync sshpass sudo \
+       less openssl p7zip py-lxml py-pip rsync sshpass sudo \
        subversion vim zip bash ttf-dejavu coreutils openssh-client  \
        build-dependencies python-dev libffi-dev openssl-dev build-base ansible \
-       && wget https://mirror.its.sfu.ca/mirror/CentOS-Third-Party/NSG/common/x86_64/jdk-8u144-linux-x64.rpm && rpm -ivh jdk-8u144-linux-x64.rpm \
+       && wget https://mirror.its.sfu.ca/mirror/CentOS-Third-Party/NSG/common/x86_64/jdk-8u144-linux-x64.rpm && yum -y localinstall --nogpgcheck jdk-8u144-linux-x64.rpm \
        && pip install --upgrade pip cffi \
        && wget http://www-eu.apache.org/dist/maven/maven-3/"$MAVEN_VERSION"/binaries/apache-maven-"$MAVEN_VERSION"-bin.tar.gz -P /tmp \
        && wget https://services.gradle.org/distributions/gradle-"$GRADLE_VERSION"-bin.zip -P /tmp \
