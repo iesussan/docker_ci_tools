@@ -10,7 +10,7 @@ ARG http_port=8080
 ARG agent_port=50000
 ARG jenkins_version=2.107.3
 ARG gradle_version=4.3
-ARG maven_version=3.3.9
+ARG maven_version=3.5.3
 
 ENV DEFAULT_MAVEN_DIR="/opt/maven" \
     MAVEN_VERSION="${maven_version}" \
@@ -34,7 +34,7 @@ RUN yum -y install epel-release \
        build-dependencies python-dev libffi-dev openssl-dev build-base ansible \
        && wget https://mirror.its.sfu.ca/mirror/CentOS-Third-Party/NSG/common/x86_64/jdk-8u144-linux-x64.rpm && yum -y localinstall --nogpgcheck jdk-8u144-linux-x64.rpm \
        && pip install --upgrade pip cffi \
-       && wget http://www-eu.apache.org/dist/maven/maven-3/"$MAVEN_VERSION"/binaries/apache-maven-"$MAVEN_VERSION"-bin.tar.gz -P /tmp \
+       && wget www-us.apache.org/dist/maven/maven-3/"$MAVEN_VERSION"/binaries/apache-maven-"$MAVEN_VERSION"-bin.tar.gz -P /tmp \
        && wget https://services.gradle.org/distributions/gradle-"$GRADLE_VERSION"-bin.zip -P /tmp \
        && mkdir -p "$DEFAULT_MAVEN_DIR" "$DEFAULT_GRADLE_DIR" "$JENKINS_HOME" "/usr/share/jenkins/ref/"  \
        && tar -xvzf /tmp/apache-maven-"$MAVEN_VERSION"-bin.tar.gz -C "$DEFAULT_MAVEN_DIR" \
