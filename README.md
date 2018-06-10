@@ -35,7 +35,7 @@ docker build -t isdaimonos/jenkins-full:latest -f Dockerfile.dockerfile .
 To run it:
 
 ```sh
-docker run --restart on-failure --name jenkins-full -d -p 8080:8080 -p 50000:50000 -v /var/lib/docker/Volumes/jenkins-full:/var/jenkins_home isdaimonos/jenkins-full:latest
+docker run --restart on-failure --name jenkins-full --dns 8.8.8.8 -d -p 8080:8080 -p 50000:50000 -v /var/lib/docker/Volumes/jenkins-full:/var/jenkins_home isdaimonos/jenkins-full:latest
 ```
 
 **Note**: Set selinux in permissive mode to avoid problems.
@@ -50,7 +50,7 @@ sudo sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config
 Sending extra vars like JVM params
 
 ```sh
-docker run --restart on-failure --name jenkins-full -d -p 8080:8080 -p 50000:50000 -v /var/lib/docker/Volumes/jenkins-full:/var/jenkins_home --env JAVA_OPTS="-Dhudson.footerURL=http://myhost -Djava.awt.headless=true" isdaimonos/jenkins-full:latest
+docker run --restart on-failure --name jenkins-full --dns 8.8.8.8 -d -p 8080:8080 -p 50000:50000 -v /var/lib/docker/Volumes/jenkins-full:/var/jenkins_home --env JAVA_OPTS="-Dhudson.footerURL=http://myhost -Djava.awt.headless=true" isdaimonos/jenkins-full:latest
 ```
 
 After it, you will run the following command
