@@ -33,7 +33,7 @@ RUN yum -y install epel-release \
     subversion vim zip bash ttf-dejavu coreutils openssh-client  \
     build-dependencies python-dev libffi-dev openssl-dev build-base ansible \
     && wget https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 \
-    && mv jq-linux64 /usr/bin/jq \
+    && mv jq-linux64 /usr/bin/jq  && chmod +x /usr/bin/jq \
     && wget https://mirror.its.sfu.ca/mirror/CentOS-Third-Party/NSG/common/x86_64/jdk-8u144-linux-x64.rpm && yum -y localinstall --nogpgcheck jdk-8u144-linux-x64.rpm \
     && pip install --upgrade pip cffi \
     && wget www-us.apache.org/dist/maven/maven-3/"$MAVEN_VERSION"/binaries/apache-maven-"$MAVEN_VERSION"-bin.tar.gz -P /tmp \
