@@ -14,6 +14,7 @@ By default:
 * `ansible version: >= 2.5.2`
 * `maven version: 3.5.4`
 * `gradle version: 2.4.2.0`
+* `NEW az-cli: 2.0.45`
 
 ## Usage
 

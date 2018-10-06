@@ -1,6 +1,6 @@
 FROM centos:centos7
 LABEL Jesus Sanchez <sanchezajesus@gmail.com>
-LABEL docker build -t isdaimonos/centos-jenkins-full:latest -f Dockerfile.dockerfile .
+LABEL docker build -t isdaimonos/jenkins-full:latest -f Dockerfile.dockerfile .
 
 ARG user=jenkins
 ARG group=jenkins
@@ -26,12 +26,20 @@ ENV DEFAULT_MAVEN_DIR="/opt/maven" \
 ENV COPY_REFERENCE_FILE_LOG="${JENKINS_HOME}/copy_reference_file.log" \
     PATH="$PATH:$JAVA_HOME/bin"
 
-# Install prepare infrastructure
+#Installation and configuration needed
+
 RUN yum -y install epel-release \
     && yum install -y wget curl unzip python git bash python2-pip \
     less openssl p7zip py-lxml py-pip rsync sshpass sudo \
     subversion vim zip bash ttf-dejavu coreutils openssh-client  \
     build-dependencies python-dev libffi-dev openssl-dev build-base ansible \
+    # new package for add support to AZ CLI
+    && wget https://packages.microsoft.com/keys/microsoft.asc \
+    && yum localinstall -y https://packages.microsoft.com/keys/microsoft.asc \
+    # add az cli official repository
+    && echo -e "[azure-cli]\nname=Azure CLI\nbaseurl=https://packages.microsoft.com/yumrepos/azure-cli\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/azure-cli.repo \
+    && yum install -y  azure-cli \
+    # The remaining configuration that we already know
     && wget https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 \
     && mv jq-linux64 /usr/bin/jq  && chmod +x /usr/bin/jq \
     && wget https://mirror.its.sfu.ca/mirror/CentOS-Third-Party/NSG/common/x86_64/jdk-8u144-linux-x64.rpm && yum -y localinstall --nogpgcheck jdk-8u144-linux-x64.rpm \
