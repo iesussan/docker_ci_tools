@@ -10,7 +10,7 @@ ARG http_port=8080
 ARG agent_port=50000
 ARG jenkins_version=2.107.3
 ARG gradle_version=4.3
-ARG maven_version=3.5.3
+ARG maven_version=3.5.4
 
 ENV DEFAULT_MAVEN_DIR="/opt/maven" \
     MAVEN_VERSION="${maven_version}" \
